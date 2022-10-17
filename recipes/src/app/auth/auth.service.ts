@@ -55,7 +55,8 @@ export class AuthService {
     );
   } // login
 
-  autologin() {
+  autoLogin() {
+    console.log('In autoLogin()')
     const userData: {
       email: string;
       id: string;
@@ -70,12 +71,14 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      const expirationDuration = +new Date(userData._tokenExpirationDate).getTime - +new Date().getTime;
+      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+      console.log('expiration duration: ', expirationDuration)
       this.autoLogout(expirationDuration);
     }
   } // autologin
 
   logout() {
+    console.log('In logout')
     this.user.next(null);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
@@ -92,7 +95,7 @@ export class AuthService {
   } // autoLogout
 
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
-    const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
+    const expirationDate = new Date(new Date().getTime() + (+expiresIn * 1000));
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
