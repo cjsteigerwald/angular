@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
+import { environment } from 'src/environments/environment';
 
 export interface AuthResponseData {
   kind: string;
@@ -23,12 +24,11 @@ export class AuthService {
   private tokenExpirationTimer: any;
   signupUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='
   loginUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='
-  apiKey = 'AIzaSyCWhaOHAwXys-OhVGZGZ5qqJLuD-VEqhog'
 
   constructor(private http: HttpClient, private router: Router) {}
 
   signup(email: string, password: string) {
-    return this.http.post<AuthResponseData>(this.signupUrl + this.apiKey, {
+    return this.http.post<AuthResponseData>(this.signupUrl + environment.firebaseAPIKey, {
       email: email,
       password: password,
       returnSecureToken: true
@@ -42,7 +42,7 @@ export class AuthService {
   } // signup
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponseData>(this.loginUrl + this.apiKey, {
+    return this.http.post<AuthResponseData>(this.loginUrl + environment.firebaseAPIKey, {
       email: email,
       password: password,
       returnSecureToken: true
