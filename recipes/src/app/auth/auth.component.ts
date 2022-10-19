@@ -2,7 +2,6 @@ import { Observable, Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { Component, ComponentFactoryResolver, OnDestroy, ViewChild } from "@angular/core";
 import { AuthResponseData, AuthService } from './auth.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Router } from '@angular/router';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceHolderDirective } from '../shared/placeholder/placeholder.directive';
