@@ -59,7 +59,7 @@ export class AuthService {
   } // login
 
   autoLogin() {
-    console.log('In autoLogin()')
+    // console.log('In autoLogin()')
     const userData: {
       email: string;
       id: string;
@@ -75,7 +75,7 @@ export class AuthService {
     if (loadedUser.token) {
       this.user.next(loadedUser);
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-      console.log('expiration duration: ', expirationDuration)
+      // console.log('expiration duration: ', expirationDuration)
       this.autoLogout(expirationDuration);
     }
   } // autologin
